@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Brawl APP</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src="/bundle.js">
+  </script>
+</head>
+<body>
+  <section id="top">
+    <h3>Create a New Fighter</h3>
+    <h4>All stats should be between 1 and 15</h4>
+    <form id="nameForm" action="/addFighter" method="post">
+      <label for="fname">Fighter Name: </label>
+      <input id="fighterNameField" type="text" name="fname" value="name"/>
+      <label for="pname">Player Name: </label>
+      <input id="playerNameField" type="text" name="pname" value="yourname"/><br>
+      <label for="hlth">Health: </label>
+      <input id="healthField" type="number" name="hlth" min="1" max="15" step="1" value="1"/><br>
+      <label for="dmg">Damage: </label>
+      <input id="damageField" type="number" name="dmg" min="1" max="15" step="1" value="1"/><br>
+      <label for="spd">Speed: </label>
+      <input id="speedField" type="number" name="spd" min="1" max="15" step="1" value="1"/><br>
+      <label for="arm">Armor: </label>
+      <input id="armorField" type="number" name="arm" min="1" max="15" step="1" value="1"/><br>
+      <label for="crit">Crit Chance: </label>
+      <input id="critField" type="number" name="crit" min="1" max="15" step="1" value="1"/><br>
+      <input type="submit" value="Add Fighter" />
+    </form>
+    <form id="fighterForm" action="/getFighters" method="get">
+      <select id='urlField'>
+        <option value='/getFighters'>/getFighters</option>
+        <option value='/notReal'>/notReal</option>
+      </select>
+      <select id="methodSelect">
+        <option value="get">GET</option>
+        <option value="head">HEAD</option>
+      </select>
+      <input type="submit" value="Get Fighters" />
+    </form>
+  </section>
+  <h3 class="centered">Fighters:</h3>
+  <section id="fightingButtons">
+    <button type="button" id="fightButton">Fight!</button>
+    <button type="button" id="deathMatchButton">Death Match!</button>
+  </section>
+  <section id="content">
+  </section>
+  <section id="responses">
+  </section>
+</body>
+</html>

@@ -1,0 +1,98 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#top {
+  text-align: center;
+  margin: 0 auto;
+}
+
+#top h1 {
+  font-size: 2em;
+}
+
+#arena {
+  margin-top: 20px;
+  text-align: center;
+  margin: auto;
+  background-color: lightgray;
+  position:relative;
+  width: 75%;
+  height: 400px;
+}
+
+#content {
+  //margin-top: 100px;
+  margin: 0 23% 0 23%;
+  text-align: center;
+}
+
+#responses {
+  text-align: center;
+}
+
+form {
+  display:inline;
+  margin:0px;
+  padding:0px;
+}
+
+.cardBox {
+  position:relative;
+  text-align: center;
+  margin: 8px 5px 36px 5px;
+  width: 300px;
+  height: 240px;
+  padding: 0 5px 5px 5px;
+  border: 1px solid black;
+  background-color: darkgrey;
+  display:inline-block;
+}
+
+.battleSlot {
+  display:inline-block;
+  vertical-align: top;
+}
+
+h1 {
+  font-size: 24px;
+  padding-bottom: 2px;
+  margin: 16px 0 0 0; /* top right bottom left */
+}
+
+h2 {
+  margin: 0 0 16px 0;
+  
+  padding-top: 2px;
+  font-size: 16px;
+  
+}
+
+h3 {
+  padding: 18px 8px 2px 8px;
+}
+
+ul {
+  text-align:left;
+  font-size: 18px;
+  list-style-position: inside;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.centered {
+  text-align:center;
+}
+ 
+.active {
+  background-color:firebrick;
+}
+
+#fightingButtons {
+  text-align: center;
+  margin: 0 0 38px 0;
+}
