@@ -47,12 +47,30 @@ const addFighter = (request, response, body) => {
   };
 
   // validate
-  if (!body.playerName || !body.fighterName || !body.health || !body.damage || !body.speed || !body.armor || !body.crit) {
+  if (
+    !body.playerName
+    || !body.fighterName
+    || !body.health
+    || !body.damage
+    || !body.speed
+    || !body.armor
+    || !body.crit
+  ) {
     responseJSON.id = 'missingParams';
     return respondJSON(request, response, 400, responseJSON);
   }
   // validate the values are between 1 and 15
-  if (body.health < 1 || body.health > 15 || body.damage < 1 || body.damage > 15 || body.speed < 1 || body.speed > 15 || body.armor < 1 || body.armor > 15 || body.crit < 1 || body.crit > 15) {
+  if (body.health < 1
+      || body.health > 15
+      || body.damage < 1
+      || body.damage > 15
+      || body.speed < 1
+      || body.speed > 15
+      || body.armor < 1
+      || body.armor > 15
+      || body.crit < 1
+      || body.crit > 15
+  ) {
     responseJSON.id = 'incorrectValues';
     responseJSON.message = 'Values should be between 1 and 15';
     return respondJSON(request, response, 400, responseJSON);
@@ -60,7 +78,8 @@ const addFighter = (request, response, body) => {
 
   let responseCode = 201; // created
 
-  if (fighters[body.fighterName] && body.secure) { // secure will only exist if the post was sent by the program, not the add fighter button
+  // secure will only exist if the post was sent by the program, not the add fighter button
+  if (fighters[body.fighterName] && body.secure) {
     responseCode = 204; // updated
   } else if (fighters[body.fighterName]) {
     // fighter already exists, and the user is trying to create another one
