@@ -1,7 +1,7 @@
 const fighters = {};
 
 // default characters
-fighters['Jayceon'] = {
+fighters.Jayceon = {
   fighterName: 'Jayceon',
   playerName: 'My B',
   battles: 0,
@@ -10,7 +10,7 @@ fighters['Jayceon'] = {
   damage: 8,
   speed: 11,
   armor: 10,
-  crit: 1
+  crit: 1,
 };
 
 const headers = {
@@ -52,12 +52,12 @@ const addFighter = (request, response, body) => {
     return respondJSON(request, response, 400, responseJSON);
   }
   // validate the values are between 1 and 15
-  if(body.health < 1 || body.health > 15 || body.damage < 1 || body.damage > 15 || body.speed < 1 || body.speed > 15 || body.armor < 1 || body.armor > 15 || body.crit < 1 || body.crit > 15) {
+  if (body.health < 1 || body.health > 15 || body.damage < 1 || body.damage > 15 || body.speed < 1 || body.speed > 15 || body.armor < 1 || body.armor > 15 || body.crit < 1 || body.crit > 15) {
     responseJSON.id = 'incorrectValues';
     responseJSON.message = 'Values should be between 1 and 15';
     return respondJSON(request, response, 400, responseJSON);
   }
-  
+
   let responseCode = 201; // created
 
   if (fighters[body.fighterName] && body.secure) { // secure will only exist if the post was sent by the program, not the add fighter button
@@ -94,17 +94,16 @@ const removeFighter = (request, response, body) => {
   const responseJSON = {
     message: 'User does not exist',
   };
-  
-  if(fighters[body.fighterName]) {
-    // delete it 
+
+  if (fighters[body.fighterName]) {
+    // delete it
     delete fighters[body.fighterName];
     return respondJSONMeta(request, response, responseCode);
-  } else {
-    responseJSON.id = 'noUser';
-    responseCode = 400;
-    return respondJSON(request, response, responseCode, responseJSON);
   }
-}
+  responseJSON.id = 'noUser';
+  responseCode = 400;
+  return respondJSON(request, response, responseCode, responseJSON);
+};
 
 const notFound = (request, response) => {
   const responseJSON = {

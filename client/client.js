@@ -69,7 +69,13 @@ const sendPost = (e, nameForm) => {
   
   xhr.onload = () => handleResponse(xhr);
   
-  const formData = `fighterName=${fighterNameField.value}&playerName=${playerNameField.value}&health=${healthField.value}&damage=${damageField.value}&speed=${speedField.value}&armor=${armorField.value}&crit=${critField.value}`;
+  const formData = `fighterName=${fighterNameField.value}`;
+  formData = `${formData}&playerName=${playerNameField.value}`;
+  formData = `${formData}&health=${healthField.value}`;
+  formData = `${formData}&damage=${damageField.value}`;
+  formData = `${formData}&speed=${speedField.value}`;
+  formData = `${formData}&armor=${armorField.value}`;
+  formData = `${formData}&crit=${critField.value}`;
   
   xhr.send(formData);
   
@@ -88,7 +94,15 @@ const updateFighter = (fighter) => {
   
   xhr.onload = () => handleResponse(xhr);
   
-  const formData = `fighterName=${fighter.fighterName}&playerName=${fighter.playerName}&health=${fighter.health}&damage=${fighter.damage}&speed=${fighter.speed}&armor=${fighter.armor}&crit=${fighter.crit}&battles=${fighter.battles}&wins=${fighter.wins}`;
+  const formData = `fighterName=${fighter.fighterName}`;
+  formData = `${formData}&playerName=${fighter.playerName}`;
+  formData = `${formData}&health=${fighter.health}`;
+  formData = `${formData}&damage=${fighter.damage}`;
+  formData = `${formData}&speed=${fighter.speed}`;
+  formData = `${formData}&armor=${fighter.armor}`;
+  formData = `${formData}&crit=${fighter.crit}`;
+  formData = `${formData}&battles=${fighter.battles}`;
+  formData = `${formData}&wins=${fighter.wins}`;
   
   xhr.send(formData);
   
@@ -102,7 +116,15 @@ const removeFighter = (fighter) => {
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Accept', 'application/json');
 
-  const formData = `fighterName=${fighter.fighterName}&playerName=${fighter.playerName}&health=${fighter.health}&damage=${fighter.damage}&speed=${fighter.speed}&armor=${fighter.armor}&crit=${fighter.crit}&battles=${fighter.battles}&wins=${fighter.wins}`;
+  const formData = `fighterName=${fighter.fighterName}`;
+  formData = `${formData}&playerName=${fighter.playerName}`;
+  formData = `${formData}&health=${fighter.health}`;
+  formData = `${formData}&damage=${fighter.damage}`;
+  formData = `${formData}&speed=${fighter.speed}`;
+  formData = `${formData}&armor=${fighter.armor}`;
+  formData = `${formData}&crit=${fighter.crit}`;
+  formData = `${formData}&battles=${fighter.battles}`;
+  formData = `${formData}&wins=${fighter.wins}`;
   
   xhr.send(formData);
   return false;
