@@ -69,7 +69,7 @@ const sendPost = (e, nameForm) => {
   
   xhr.onload = () => handleResponse(xhr);
   
-  const formData = `fighterName=${fighterNameField.value}`;
+  let formData = `fighterName=${fighterNameField.value}`;
   formData = `${formData}&playerName=${playerNameField.value}`;
   formData = `${formData}&health=${healthField.value}`;
   formData = `${formData}&damage=${damageField.value}`;
@@ -94,7 +94,7 @@ const updateFighter = (fighter) => {
   
   xhr.onload = () => handleResponse(xhr);
   
-  const formData = `fighterName=${fighter.fighterName}`;
+  let formData = `fighterName=${fighter.fighterName}`;
   formData = `${formData}&playerName=${fighter.playerName}`;
   formData = `${formData}&health=${fighter.health}`;
   formData = `${formData}&damage=${fighter.damage}`;
@@ -116,7 +116,7 @@ const removeFighter = (fighter) => {
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Accept', 'application/json');
 
-  const formData = `fighterName=${fighter.fighterName}`;
+  let formData = `fighterName=${fighter.fighterName}`;
   formData = `${formData}&playerName=${fighter.playerName}`;
   formData = `${formData}&health=${fighter.health}`;
   formData = `${formData}&damage=${fighter.damage}`;
@@ -294,13 +294,18 @@ const fight = (death) => {
   
   xhr.onload = () => {
     switch(xhr.status) {
-        case 200:
-          if(xhr.response) {
-            fighters = (JSON.parse(xhr.response)).fighters;
-            runBattle(fighters, death);
-          }
-          break;
-      }
+      case 200:
+        if(xhr.response) {
+          fighters = (JSON.parse(xhr.response)).fighters;
+          runBattle(fighters, death);
+        }
+        break;
+      default:
+        break;
+    }
+    
+    // update fighters
+    getFighters();
   };
   xhr.send();
 };
@@ -352,11 +357,6 @@ const runBattle = (fighters, death) => {
     return;
   }
   
-  // increase battles and wins of the fighters
-  // parseInt(result.winner.battles) += 1;
-  // parseInt(result.winner.wins) += 1;
-  // 
-  // parseInt(result.loser.battles) += 1;
   result.winner.battles = parseInt(result.winner.battles);
   result.winner.wins = parseInt(result.winner.wins);
   result.loser.battles = parseInt(result.loser.battles);
@@ -368,9 +368,10 @@ const runBattle = (fighters, death) => {
   // fighter1 = increaseStats(result.winner);
   // fighter2 = increaseStats(result.loser);
   
-  // remove the loser if its a deathmatch
+  // remove the loser and increase skill of the winner if its a deathmatch
   if(death === true) {
     removeFighter(result.loser);
+    fighter1 = increaseStats(result.winner);
   } else {
     updateFighter(result.loser);
   }
@@ -384,19 +385,19 @@ const increaseStats = (fighter) => {
   // upgrade a random stat by one
   switch(randomStat) {
     case 1:
-      fighter.health += 1;
+      fighter.health = Number(fighter.health) + 1;
       break;
     case 2:
-      fighter.damage += 1;
+      fighter.damage = Number(fighter.damage) + 1;
       break;
     case 3:
-      fighter.speed += 1;
+      fighter.speed = Number(fighter.speed) + 1;
       break;
     case 4:
-      fighter.armor += 1;
+      fighter.armor = Number(fighter.armor) + 1;
       break;
     case 5:
-      fighter.crit += 1;
+      fighter.crit = Number(fighter.crit) + 1;
       break;
     default:
       break;
@@ -405,6 +406,22 @@ const increaseStats = (fighter) => {
   // return the fighter back
   return fighter;
 };
+
+const calculatePointsLeft = (nameForm, numPoints) => {
+  const healthField = nameForm.querySelector('#healthField');
+  const damageField = nameForm.querySelector('#damageField');
+  const speedField = nameForm.querySelector('#speedField');
+  const armorField = nameForm.querySelector('#armorField');
+  const critField = nameForm.querySelector('#critField');
+  
+  let totalValue = healthField.value + 
+                   damageField.value + 
+                   speedField.value + 
+                   armorField.value + 
+                   critField.value;
+  
+  let pointsLeft = numPoints - totalValue;
+}
 
 
 const init = () => {

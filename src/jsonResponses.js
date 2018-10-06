@@ -91,13 +91,13 @@ const addFighter = (request, response, body) => {
   // key it based on name
   fighters[body.fighterName].fighterName = body.fighterName;
   fighters[body.fighterName].playerName = body.playerName;
-  fighters[body.fighterName].health = body.health;
-  fighters[body.fighterName].damage = body.damage;
-  fighters[body.fighterName].speed = body.speed;
-  fighters[body.fighterName].armor = body.armor;
-  fighters[body.fighterName].crit = body.crit;
-  fighters[body.fighterName].wins = body.wins || 0;
-  fighters[body.fighterName].battles = body.battles || 0;
+  fighters[body.fighterName].health = Number(body.health);
+  fighters[body.fighterName].damage = Number(body.damage);
+  fighters[body.fighterName].speed = Number(body.speed);
+  fighters[body.fighterName].armor = Number(body.armor);
+  fighters[body.fighterName].crit = Number(body.crit);
+  fighters[body.fighterName].wins = Number(body.wins) || 0;
+  fighters[body.fighterName].battles = Number(body.battles) || 0;
 
   if (responseCode === 201) {
     responseJSON.message = 'Created successfully';

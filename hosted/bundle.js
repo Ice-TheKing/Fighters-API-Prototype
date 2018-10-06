@@ -73,7 +73,13 @@ var sendPost = function sendPost(e, nameForm) {
     return handleResponse(xhr);
   };
 
-  var formData = 'fighterName=' + fighterNameField.value + '&playerName=' + playerNameField.value + '&health=' + healthField.value + '&damage=' + damageField.value + '&speed=' + speedField.value + '&armor=' + armorField.value + '&crit=' + critField.value;
+  var formData = 'fighterName=' + fighterNameField.value;
+  formData = formData + '&playerName=' + playerNameField.value;
+  formData = formData + '&health=' + healthField.value;
+  formData = formData + '&damage=' + damageField.value;
+  formData = formData + '&speed=' + speedField.value;
+  formData = formData + '&armor=' + armorField.value;
+  formData = formData + '&crit=' + critField.value;
 
   xhr.send(formData);
 
@@ -94,7 +100,15 @@ var updateFighter = function updateFighter(fighter) {
     return handleResponse(xhr);
   };
 
-  var formData = 'fighterName=' + fighter.fighterName + '&playerName=' + fighter.playerName + '&health=' + fighter.health + '&damage=' + fighter.damage + '&speed=' + fighter.speed + '&armor=' + fighter.armor + '&crit=' + fighter.crit + '&battles=' + fighter.battles + '&wins=' + fighter.wins;
+  var formData = 'fighterName=' + fighter.fighterName;
+  formData = formData + '&playerName=' + fighter.playerName;
+  formData = formData + '&health=' + fighter.health;
+  formData = formData + '&damage=' + fighter.damage;
+  formData = formData + '&speed=' + fighter.speed;
+  formData = formData + '&armor=' + fighter.armor;
+  formData = formData + '&crit=' + fighter.crit;
+  formData = formData + '&battles=' + fighter.battles;
+  formData = formData + '&wins=' + fighter.wins;
 
   xhr.send(formData);
 
@@ -108,7 +122,15 @@ var removeFighter = function removeFighter(fighter) {
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.setRequestHeader('Accept', 'application/json');
 
-  var formData = 'fighterName=' + fighter.fighterName + '&playerName=' + fighter.playerName + '&health=' + fighter.health + '&damage=' + fighter.damage + '&speed=' + fighter.speed + '&armor=' + fighter.armor + '&crit=' + fighter.crit + '&battles=' + fighter.battles + '&wins=' + fighter.wins;
+  var formData = 'fighterName=' + fighter.fighterName;
+  formData = formData + '&playerName=' + fighter.playerName;
+  formData = formData + '&health=' + fighter.health;
+  formData = formData + '&damage=' + fighter.damage;
+  formData = formData + '&speed=' + fighter.speed;
+  formData = formData + '&armor=' + fighter.armor;
+  formData = formData + '&crit=' + fighter.crit;
+  formData = formData + '&battles=' + fighter.battles;
+  formData = formData + '&wins=' + fighter.wins;
 
   xhr.send(formData);
   return false;
@@ -281,7 +303,12 @@ var fight = function fight(death) {
           runBattle(fighters, death);
         }
         break;
+      default:
+        break;
     }
+
+    // update fighters
+    getFighters();
   };
   xhr.send();
 };
@@ -333,11 +360,6 @@ var runBattle = function runBattle(fighters, death) {
     return;
   }
 
-  // increase battles and wins of the fighters
-  // parseInt(result.winner.battles) += 1;
-  // parseInt(result.winner.wins) += 1;
-  // 
-  // parseInt(result.loser.battles) += 1;
   result.winner.battles = parseInt(result.winner.battles);
   result.winner.wins = parseInt(result.winner.wins);
   result.loser.battles = parseInt(result.loser.battles);
@@ -349,9 +371,10 @@ var runBattle = function runBattle(fighters, death) {
   // fighter1 = increaseStats(result.winner);
   // fighter2 = increaseStats(result.loser);
 
-  // remove the loser if its a deathmatch
+  // remove the loser and increase skill of the winner if its a deathmatch
   if (death === true) {
     removeFighter(result.loser);
+    fighter1 = increaseStats(result.winner);
   } else {
     updateFighter(result.loser);
   }
@@ -365,19 +388,19 @@ var increaseStats = function increaseStats(fighter) {
   // upgrade a random stat by one
   switch (randomStat) {
     case 1:
-      fighter.health += 1;
+      fighter.health = Number(fighter.health) + 1;
       break;
     case 2:
-      fighter.damage += 1;
+      fighter.damage = Number(fighter.damage) + 1;
       break;
     case 3:
-      fighter.speed += 1;
+      fighter.speed = Number(fighter.speed) + 1;
       break;
     case 4:
-      fighter.armor += 1;
+      fighter.armor = Number(fighter.armor) + 1;
       break;
     case 5:
-      fighter.crit += 1;
+      fighter.crit = Number(fighter.crit) + 1;
       break;
     default:
       break;
@@ -385,6 +408,18 @@ var increaseStats = function increaseStats(fighter) {
 
   // return the fighter back
   return fighter;
+};
+
+var calculatePointsLeft = function calculatePointsLeft(nameForm, numPoints) {
+  var healthField = nameForm.querySelector('#healthField');
+  var damageField = nameForm.querySelector('#damageField');
+  var speedField = nameForm.querySelector('#speedField');
+  var armorField = nameForm.querySelector('#armorField');
+  var critField = nameForm.querySelector('#critField');
+
+  var totalValue = healthField.value + damageField.value + speedField.value + armorField.value + critField.value;
+
+  var pointsLeft = numPoints - totalValue;
 };
 
 var init = function init() {

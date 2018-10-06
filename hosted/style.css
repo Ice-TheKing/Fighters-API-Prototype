@@ -26,7 +26,7 @@ html, body {
 
 #content {
   //margin-top: 100px;
-  margin: 0 23% 0 23%;
+  // margin: 0 23% 0 23%;
   text-align: center;
 }
 
@@ -44,7 +44,7 @@ form {
   position:relative;
   text-align: center;
   margin: 8px 5px 36px 5px;
-  width: 300px;
+  width: 250px;
   height: 240px;
   padding: 0 5px 5px 5px;
   border: 1px solid black;
@@ -59,7 +59,7 @@ form {
 
 h1 {
   font-size: 24px;
-  padding-bottom: 2px;
+  padding-bottom: 20px 0 2px 0;
   margin: 16px 0 0 0; /* top right bottom left */
 }
 
@@ -72,6 +72,7 @@ h2 {
 }
 
 h3 {
+  font-size: 28px;
   padding: 18px 8px 2px 8px;
 }
 
@@ -90,6 +91,34 @@ ul {
  
 .active {
   background-color:firebrick;
+}
+
+#log {
+  position:absolute;
+  float:right;
+  right:30px;
+  top:50px;
+  height:90%;
+  width:28%;
+  border:1px solid #ccc;
+  overflow:auto;
+  padding-left: 20px;
+}
+
+#main {
+  position:absolute;
+  float:left;
+  left: 30px;
+  top:50px;
+  height:90%;
+  width: 60%;
+  overflow:auto;
+  border: 1px solid #ccc;
+}
+
+#logContent {
+  position:relative;
+  bottom:0;
 }
 
 #fightingButtons {
